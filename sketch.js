@@ -45,7 +45,7 @@ function draw() {
             direction = k
         }
     }
-    console.log(direction, key)
+    // console.log(direction, key)
     snake.update(direction)
 
 
