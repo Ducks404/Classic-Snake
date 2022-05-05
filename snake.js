@@ -29,6 +29,6 @@ class Snake{
     }
 
     draw() {
-        square(this.head.x, this.head.y, this.width)
+        square((this.head.x + width)%width, (this.head.y + height)%height, this.width)
     }
 }
