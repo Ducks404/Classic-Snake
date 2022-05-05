@@ -3,7 +3,8 @@ let cols
 let rows
 let grid, temp
 let snake
-let snake1
+let direction
+
 function make2DArray(x, y) {
     let arr = []
     for (let i = 0; i < x; i ++) {
@@ -33,8 +34,18 @@ function draw() {
     strokeWeight(1)
     snake.draw()
     if (key.startsWith('Arrow')) {
-        direction = key.substr(5).toLowerCase()
+        let k = key.substr(5).toLowerCase()
+        if (key.endsWith('Right') && direction != 'left') {
+            direction = k
+        } else if (key.endsWith('Left') && direction != 'right') {
+            direction = k
+        } else if (key.endsWith('Up') && direction != 'down') {
+            direction = k
+        } else if (key.endsWith('Down') && direction != 'up') {
+            direction = k
+        }
     }
+    console.log(direction, key)
     snake.update(direction)
 
 
