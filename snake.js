@@ -35,8 +35,19 @@ class Snake{
         this.draw()
         this.body.unshift({x:this.head.x,y:this.head.y})
         this.vel = DirtoVel(dir)
-        this.head.x += this.vel.x * this.width
-        this.head.y += this.vel.y * this.width
+
+        if (this.head.x == width - this.width && this.vel.x == 1) {
+            this.head.x = 0
+        } else if (this.head.y == height - this.width && this.vel.y == 1) {
+            this.head.y = 0
+        } else if (this.head.x == 0 && this.vel.x == -1) {
+            this.head.x = width - this.width
+        } else if (this.head.y == 0 && this.vel.y == -1) {
+            this.head.y = height - this.width
+        } else {
+            this.head.x += this.vel.x * this.width
+            this.head.y += this.vel.y * this.width
+        }
 
         if (this.body.length > this.length-1) {
             this.body.pop()
