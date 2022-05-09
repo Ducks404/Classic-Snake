@@ -1,29 +1,17 @@
 let w = 20
 let cols
 let rows
-let grid, temp
 let snake
 let direction
-
-function make2DArray(x, y) {
-    let arr = []
-    for (let i = 0; i < x; i ++) {
-        arr.push([])
-        for (let j = 0; j < y; j++) {
-            arr[i].push(0)
-        }
-    }
-    return arr
-}
+let apple
 
 function setup() {
     createCanvas(600,600)
     frameRate(10)
     cols = width/w
     rows = height/w
-    grid = make2DArray(cols, rows)
-    temp = make2DArray(cols, rows)
-    snake = new Snake([w*3, height/2], w)
+    snake = new Snake([w*3, floor(rows/2)*w], w)
+    apple = new Apple(w)
     
     direction = 'right'
 }
@@ -45,7 +33,10 @@ function draw() {
         }
     }
     // console.log(direction, key)
-    snake.update(direction)
+    apple.draw()
+    snake_data = snake.update(direction)
+    apple.update(snake_data)
+    apple.check()
 
 
 
