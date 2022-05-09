@@ -23,7 +23,7 @@ function setup() {
     rows = height/w
     grid = make2DArray(cols, rows)
     temp = make2DArray(cols, rows)
-    snake = new Snake([0, height/2], w)
+    snake = new Snake([w*3, height/2], w)
     
     direction = 'right'
 }
@@ -32,7 +32,6 @@ function draw() {
     background(0)
     stroke(0)
     strokeWeight(1)
-    snake.draw()
     if (key.startsWith('Arrow')) {
         let k = key.substr(5).toLowerCase()
         if (key.endsWith('Right') && direction != 'left') {
