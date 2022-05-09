@@ -20,6 +20,7 @@ function drawS(x, y, w) {
 
 class Snake{
     constructor(head, width, direction = 'right') {
+        this.alive = true
         this.head = {
             x: head[0],
             y: head[1]
@@ -36,27 +37,39 @@ class Snake{
     }
 
     update(dir='right') {
-        this.body.unshift({x:this.head.x,y:this.head.y})
-        this.vel = DirtoVel(dir)
-
-        if (this.head.x == width - this.width && this.vel.x == 1) {
-            this.head.x = 0
-        } else if (this.head.y == height - this.width && this.vel.y == 1) {
-            this.head.y = 0
-        } else if (this.head.x == 0 && this.vel.x == -1) {
-            this.head.x = width - this.width
-        } else if (this.head.y == 0 && this.vel.y == -1) {
-            this.head.y = height - this.width
+        let x = this.head.x
+        let y = this.head.y
+        let inItself = this.body.some(function (coord) {
+            if (coord.x == x && coord.y == y) {
+                return true
+            }
+        })
+        if (inItself) {
+            this.alive = false
+            console.log('You died!')
         } else {
-            this.head.x += this.vel.x * this.width
-            this.head.y += this.vel.y * this.width
-        }
+            this.body.unshift({x:this.head.x,y:this.head.y})
+            this.vel = DirtoVel(dir)
 
-        if (this.body.length > this.length-1) {
-            this.body.pop()
+            if (this.head.x == width - this.width && this.vel.x == 1) {
+                this.head.x = 0
+            } else if (this.head.y == height - this.width && this.vel.y == 1) {
+                this.head.y = 0
+            } else if (this.head.x == 0 && this.vel.x == -1) {
+                this.head.x = width - this.width
+            } else if (this.head.y == 0 && this.vel.y == -1) {
+                this.head.y = height - this.width
+            } else {
+                this.head.x += this.vel.x * this.width
+                this.head.y += this.vel.y * this.width
+            }
+
+            if (this.body.length > this.length-1) {
+                this.body.pop()
+            }
+            this.draw()
+            return this.body.concat(this.head)
         }
-        this.draw()
-        return this.body.concat(this.head)
     }
 
     draw() {
@@ -85,6 +98,9 @@ class Apple{
             let coords = this.randomize()
             this.x = coords[0]
             this.y = coords[1]
+            return 1
+        } else {
+            return 0
         }
     }
 

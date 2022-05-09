@@ -4,6 +4,7 @@ let rows
 let snake
 let direction
 let apple
+let score = 0
 
 function setup() {
     createCanvas(600,600)
@@ -35,15 +36,15 @@ function draw() {
     // console.log(direction, key)
     apple.draw()
     snake_data = snake.update(direction)
-    apple.update(snake_data)
-    apple.check()
-
-
-
-
-
-
-
-    // console.log(snake1.dir)
-    // console.log(`Snake = ${snake.head.x}, ${snake.head.y} \n Snake1 = ${snake1.head.x},${snake1.head.y}`)
+    if (snake.alive) {
+        apple.update(snake_data)
+        score += apple.check()
+    } else {
+        noLoop()
+        textAlign(CENTER)
+        textSize(width/5)
+        textFont('downcome')
+        text('YOU DIED', width/2, height/3)
+        text(`Score: ${score}`, width/2, height/3*2)
+    }
 }
